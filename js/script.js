@@ -7,10 +7,11 @@ project 1 - A Random Quote Generator
 // Check the "Project Resources" section of the project instructions
 // Reach out in your Slack community - https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat
 
-/***
- * `quotes` Array
- *    - This is an array of quote objects containing the quote, source, citation, and year.
- ***/
+/**
+ * @name quotes[]
+ * This is an array of quote objects containing the quote, source, citation, year and info.
+ * @type {Array} quotes
+ */
 const quotes = [
   {
     quote:
@@ -74,13 +75,12 @@ const quotes = [
 ];
 // end quotes[];
 
-/***
- * `getRandomQuote` Function
- *    - This function stores a random number from 0 to one number less than the
- *      length of the quotes array. Then returns the quote object at the random
- *      numbers index.
- ***/
-
+/**
+ * @name getRandomQuote()
+ * This function stores a random number from 0 to one number less than the length of the quotes array. Then returns the quote object at the random numbers index.
+ * @type {function} getRandomQuote
+ * @returns {Object} quotes : A random quote object containing quote, source, citation, year, and info.
+ */
 function getRandomQuote() {
   const randomNumber = Math.floor(Math.random() * quotes.length);
   // console.log(
@@ -91,35 +91,50 @@ function getRandomQuote() {
 }
 // end getRandomQuote();
 
-/***
- * EXTRA CREDIT
- * `randomBackgroundColor` Function
- *    - This function has an array of random colors and adds a random background color to body
- *      of the page
+/**
+ * @name randomBackgroundColor()
+ * Extra Credit: This function randomly selects a six digit hex color and changes the body element background color.
  */
 function randomBackgroundColor() {
-  const colors = [
-    "#ff0000",
-    "#005eff",
-    "#ff00f7",
-    "#ffea00",
-    "#ff8000",
-    "#8000ff",
-    "#472502",
-    "#346b59",
-    "#002e5c",
+  const hexValues = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
   ];
-  const randomNumber = Math.floor(Math.random() * colors.length);
-  document.body.style.backgroundColor = colors[randomNumber];
+  function createRandomColor() {
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += hexValues[Math.floor(Math.random() * hexValues.length)];
+    }
+    return color;
+  }
+  document.body.style.backgroundColor = createRandomColor();
 }
 // end randomBackgroundColor
 
-/***
- * `printQuote` Function
- *    - This function calls the randomQuoteObject recieving a random quote object
- *      then creates the HTML required to print the quote. Finally changing the
- *      inner HTML of the #quote-box
- ***/
+/**
+ * @name timer
+ * Extra Credit: Automatically refreshes the quote every 10 seconds
+ */
+var timer = setInterval(printQuote, 10000);
+
+/**
+ * @name printQuote()
+ * This function calls the randomQuoteObject recieving a random quote object then creates the HTML required to print the quote. Finally changing the inner HTML of the #quote-box
+ */
 function printQuote() {
   const randomQuoteObject = getRandomQuote();
   let quoteHTML = `<p class="quote">${randomQuoteObject.quote}</p><p class="source">${randomQuoteObject.source}`;
@@ -134,19 +149,9 @@ function printQuote() {
   }
   quoteHTML += "</p>";
   document.getElementById("quote-box").innerHTML = quoteHTML;
-  randomBackgroundColor(); // EXTRA CREDIT
+  randomBackgroundColor(); // Extra Credit
 }
 // end printQuote();
-
-/***
- * EXTRA CREDIT
- * Auto Refresh Quote Function
- *    - This function automatically refreshes the quote every 10 seconds
- */
-setInterval(function () {
-  printQuote();
-}, 10000);
-// end auto refresh quote
 
 /***
  * click event listener for the print quote button
