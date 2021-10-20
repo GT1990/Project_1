@@ -115,7 +115,7 @@ h1 {
   font-style: normal;
 }
 
-.info:before {
+.tags:before {
   content: ", ";
   font-style: normal;
 }

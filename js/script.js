@@ -9,7 +9,7 @@ project 1 - A Random Quote Generator
 
 /**
  * @name quotes[]
- * This is an array of quote objects containing the quote, source, citation, year and info.
+ * This is an array of quote objects containing the quote and source with optionals such as citation, year and tags.
  * @type {Array} quotes
  */
 const quotes = [
@@ -17,60 +17,41 @@ const quotes = [
     quote:
       "Tell me and I forget. Teach me and I remember. Involve me and I learn.",
     source: "Benjamin Franklin",
-    citation:
-      "Benjamin Franklin Quotes. (n.d.). BrainyQuote.com. Retrieved October 18, 2021, from BrainyQuote.com Web site: https://www.brainyquote.com/quotes/benjamin_franklin_383997",
-    year: "January 17, 1706 - April 17, 1790",
-    info: "American - Politician",
+    tags: ["American", "Politician"],
   },
   {
     quote: "Those that know, do. Those that understand, teach.",
     source: "Aristotle",
-    citation:
-      "Aristotle Quotes. (n.d.). BrainyQuote.com. Retrieved October 18, 2021, from BrainyQuote.com Web site: https://www.brainyquote.com/quotes/aristotle_378331",
-    year: "384 BC - 322 BC",
-    info: "Greek - Philosopher",
+    tags: ["Greek", "Philosopher"],
   },
   {
     quote: "You must be the change you wish to see in the world.",
     source: "Mahatma Gandhi",
-    citation:
-      "Mahatma Gandhi Quotes. (n.d.). BrainyQuote.com. Retrieved October 18, 2021, from BrainyQuote.com Web site: https://www.brainyquote.com/quotes/mahatma_gandhi_109075",
-    year: "October 2, 1869 - January 30, 1948",
-    info: "Indian - Leader",
   },
   {
-    quote: "What would life be if we had no courage to attempt anything?",
-    source: "Vincent Van Gogh",
-    citation:
-      "Vincent Van Gogh Quotes. (n.d.). BrainyQuote.com. Retrieved October 18, 2021, from BrainyQuote.com Web site: https://www.brainyquote.com/quotes/vincent_van_gogh_150781",
-    year: "March 30, 1853 - July 29, 1890",
-    info: "Dutch - Painter",
+    quote: "Elementary, my dear Watson.",
+    source: "Sherlock Holmes ",
+    citation: "The Adventures of Sherlock Holmes",
+    year: "1929",
   },
   {
     quote:
       "He who is not courageous enough to take risks will accomplish nothing in life.",
     source: "Muhammad Ali",
-    citation:
-      "Muhammad Ali Quotes. (n.d.). BrainyQuote.com. Retrieved October 18, 2021, from BrainyQuote.com Web site: https://www.brainyquote.com/quotes/muhammad_ali_148633",
-    year: "January 17, 1942 - June 3, 2016",
-    info: "American - Boxer",
+    tags: ["American", "Boxer"],
   },
   {
-    quote:
-      "If I have seen further than others, it is by standing upon the shoulders of giants.",
-    source: "Isaac Newton",
-    citation:
-      "Isaac Newton Quotes. (n.d.). BrainyQuote.com. Retrieved October 18, 2021, from BrainyQuote.com Web site: https://www.brainyquote.com/quotes/isaac_newton_135885",
-    year: "December 25, 1642 - March 20, 1727",
-    info: "English - Mathematician",
+    quote: "May the Force be with you.",
+    source: "Obi-Wan Kenobi",
+    citation: "Star Wars",
+    year: "1977",
+    tags: ["Movie", "Science Fiction"],
   },
   {
-    quote: "Quality means doing it right when no one is looking.",
-    source: "Henry Ford",
-    citation:
-      "Henry Ford Quotes. (n.d.). BrainyQuote.com. Retrieved October 18, 2021, from BrainyQuote.com Web site: https://www.brainyquote.com/quotes/henry_ford_106096",
-    year: "July 30, 1863 - April 7, 1947",
-    info: "American - Businessman",
+    quote: "Toto, I've got a feeling we're not in Kansas anymore.",
+    source: "Dorothy",
+    citation: "The Wizard of Oz",
+    year: "1939",
   },
 ];
 // end quotes[];
@@ -79,7 +60,7 @@ const quotes = [
  * @name getRandomQuote()
  * This function stores a random number from 0 to one number less than the length of the quotes array. Then returns the quote object at the random numbers index.
  * @type {function} getRandomQuote
- * @returns {Object} quotes : A random quote object containing quote, source, citation, year, and info.
+ * @returns {Object} quotes : A random quote object containing quote, source, citation, year, and tags.
  */
 function getRandomQuote() {
   const randomNumber = Math.floor(Math.random() * quotes.length);
@@ -138,14 +119,16 @@ var timer = setInterval(printQuote, 10000);
 function printQuote() {
   const randomQuoteObject = getRandomQuote();
   let quoteHTML = `<p class="quote">${randomQuoteObject.quote}</p><p class="source">${randomQuoteObject.source}`;
-  if (randomQuoteObject.citation !== "") {
+  if ("citation" in randomQuoteObject) {
     quoteHTML += `<span class="citation">${randomQuoteObject.citation}</span>`;
   }
-  if (randomQuoteObject.year !== "") {
+  if ("year" in randomQuoteObject) {
     quoteHTML += `<span class="year">${randomQuoteObject.year}</span>`;
   }
-  if (randomQuoteObject.info !== "") {
-    quoteHTML += `<span class="info">${randomQuoteObject.info}</span>`;
+  if ("tags" in randomQuoteObject) {
+    quoteHTML += `<span class="tags">${randomQuoteObject.tags.join(
+      ", "
+    )}</span>`;
   }
   quoteHTML += "</p>";
   document.getElementById("quote-box").innerHTML = quoteHTML;
