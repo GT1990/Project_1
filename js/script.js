@@ -126,7 +126,7 @@ function printQuote() {
     quoteHTML += `<span class="year">${randomQuoteObject.year}</span>`;
   }
   if ("tags" in randomQuoteObject) {
-    quoteHTML += `<span class="tags">${randomQuoteObject.tags.join(
+    quoteHTML += `<span class="tags">, ${randomQuoteObject.tags.join(
       ", "
     )}</span>`;
   }
